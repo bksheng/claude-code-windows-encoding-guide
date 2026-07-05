@@ -1,0 +1,24 @@
+name: Validate Markdown
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Check markdown links
+      uses: lycheeverse/lychee-action@v1
+      with:
+        args: --timeout 30 README.md
+
+    - name: Markdown lint
+      uses: DavidAnson/markdownlint-cli2-action@v9
+      with:
+        globs: '**/*.md'
